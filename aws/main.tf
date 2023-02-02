@@ -18,13 +18,13 @@ resource "aws_security_group" "consul_nomad_ui_ingress" {
     cidr_blocks     = [var.allowlist_ip]
   }
 
-  # Consul
-  ingress {
-    from_port       = 8500
-    to_port         = 8500
-    protocol        = "tcp"
-    cidr_blocks     = [var.allowlist_ip]
-  }
+  # # Consul
+  # ingress {
+  #   from_port       = 8500
+  #   to_port         = 8500
+  #   protocol        = "tcp"
+  #   cidr_blocks     = [var.allowlist_ip]
+  # }
 
   ingress {
     from_port = 0
@@ -83,7 +83,7 @@ resource "aws_security_group" "allow_all_internal" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    self        = true
   }
 }
 
@@ -153,10 +153,10 @@ resource "aws_key_pair" "generated_key" {
   public_key = tls_private_key.private_key.public_key_openssh
 }
 
-output "private_key" {
-  value     = tls_private_key.private_key.private_key_pem
-  sensitive = true
-}
+# output "private_key" {
+#   value     = tls_private_key.private_key.private_key_pem
+#   sensitive = true
+# }
 
 resource "aws_instance" "server" {
   ami                    = data.aws_ami.ubuntu.id
@@ -172,14 +172,13 @@ resource "aws_instance" "server" {
     host        = self.public_ip
   }
 
-  # instance tags
-  # ConsulAutoJoin is necessary for nodes to automatically join the cluster
+  # NomadJoinTag is necessary for nodes to automatically join the cluster
   tags = merge(
     {
       "Name" = "${var.name}-server-${count.index}"
     },
     {
-      "ConsulAutoJoin" = "auto-join"
+      "NomadJoinTag" = "auto-join"
     },
     {
       "NomadType" = "server"
@@ -207,8 +206,8 @@ resource "aws_instance" "server" {
     cloud_env                 = "aws"
     retry_join                = var.retry_join
     nomad_binary              = var.nomad_binary
-    nomad_consul_token_id     = var.nomad_consul_token_id
-    nomad_consul_token_secret = var.nomad_consul_token_secret
+    # nomad_consul_token_id     = var.nomad_consul_token_id
+    # nomad_consul_token_secret = var.nomad_consul_token_secret
   })
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
 

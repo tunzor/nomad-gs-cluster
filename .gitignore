@@ -1,6 +1,6 @@
 .vagrant/
 aws.env/us-east/.terraform/
-.terraform
+.terraform*
 examples/
 *.tfstate
 *.tfstate.backup
@@ -9,5 +9,5 @@ terraform.tfvars
 variables.hcl
 Vagrantfile
 ignore*
-nomad.token
+*.token
 *.pem
