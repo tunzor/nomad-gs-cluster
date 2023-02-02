@@ -14,5 +14,8 @@ export NOMAD_ADDR=http://${aws_instance.server[0].public_ip}:4646 && \
 nomad acl bootstrap | grep -i secret | awk -F "=" '{print $2}' | xargs > nomad-management.token && \
 export NOMAD_TOKEN=$(cat nomad-management.token) && \
 nomad server members
+
+Copy the token value and use it to log in to the UI:
+cat nomad-management.token
 CONFIGURATION
 }

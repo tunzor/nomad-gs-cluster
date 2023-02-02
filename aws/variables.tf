@@ -5,12 +5,9 @@ variable "name" {
 
 variable "region" {
   description = "The AWS region to deploy to."
-  default = "us-east-2"
+  # default = "us-east-2"
+  default = "ca-central-1"
 }
-
-# variable "key_name" {
-#   description = "The name of the AWS SSH key to be loaded on the instance at provisioning."
-# }
 
 variable "retry_join" {
   description = "Used by Consul to automatically form a cluster."
@@ -40,21 +37,13 @@ variable "server_count" {
 
 variable "client_count" {
   description = "The number of clients to provision."
-  default     = "3"
+  default     = "2"
 }
 
 variable "root_block_device_size" {
   description = "The volume size of the root block device."
   default     = 16
 }
-
-# variable "nomad_consul_token_id" {
-#   description = "Accessor ID for the Consul ACL token used by Nomad servers and clients. Must be a UUID."
-# }
-
-# variable "nomad_consul_token_secret" {
-#   description = "Secret ID for the Consul ACL token used by Nomad servers and clients. Must be a UUID."
-# }
 
 variable "nomad_binary" {
   description = "URL of a zip file containing a nomad executable to replace the Nomad binaries in the AMI with. Example: https://releases.hashicorp.com/nomad/0.10.0/nomad_0.10.0_linux_amd64.zip"

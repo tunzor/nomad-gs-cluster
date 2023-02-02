@@ -4,6 +4,7 @@
 
 data_dir  = "/opt/nomad/data"
 bind_addr = "0.0.0.0"
+datacenter = "dc1"
 
 server {
   enabled          = true
@@ -12,10 +13,6 @@ server {
   server_join {
     retry_join = ["RETRY_JOIN"]
   }
-}
-
-client {
-  enabled       = true
 }
 
 log_level = "debug"
