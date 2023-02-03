@@ -106,7 +106,20 @@ sudo cp $CONFIGDIR/nomad.service /etc/systemd/system/nomad.service
 
 sudo systemctl enable nomad.service
 sudo systemctl start nomad.service
-sleep 10
+
+# Wait for Nomad to restart
+for i in {1..9}; do
+    # capture stdout and stderr
+    set +e
+    sleep 1
+    OUTPUT=$(nomad -v 2>&1)
+    if [ $? -ne 0 ]; then
+        continue
+    else
+        exit 0
+    fi
+done
+
 export NOMAD_ADDR=http://$IP_ADDRESS:4646
 
 # Add hostname to /etc/hosts

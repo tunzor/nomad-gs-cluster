@@ -79,6 +79,15 @@ sudo apt-get update
 sudo apt-get install -y openjdk-8-jdk
 JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 
+# CNI plugins
+curl -L -o cni-plugins.tgz "https://github.com/containernetworking/plugins/releases/download/v1.0.0/cni-plugins-linux-$( [ $(uname -m) = aarch64 ] && echo arm64 || echo amd64)"-v1.0.0.tgz
+sudo mkdir -p /opt/cni/bin
+sudo tar -C /opt/cni/bin -xzf cni-plugins.tgz
+
+echo 1 | sudo tee /proc/sys/net/bridge/bridge-nf-call-arptables
+echo 1 | sudo tee /proc/sys/net/bridge/bridge-nf-call-ip6tables
+echo 1 | sudo tee /proc/sys/net/bridge/bridge-nf-call-iptables
+
 # Install phase finish ---------------------------------------
 
 RETRY_JOIN="${retry_join}"
@@ -100,7 +109,20 @@ sudo cp $CONFIGDIR/nomad.service /etc/systemd/system/nomad.service
 
 sudo systemctl enable nomad.service
 sudo systemctl start nomad.service
-sleep 10
+
+# Wait for Nomad to restart
+for i in {1..9}; do
+    # capture stdout and stderr
+    set +e
+    sleep 1
+    OUTPUT=$(nomad -v 2>&1)
+    if [ $? -ne 0 ]; then
+        continue
+    else
+        exit 0
+    fi
+done
+
 export NOMAD_ADDR=http://$IP_ADDRESS:4646
 
 # Add hostname to /etc/hosts
