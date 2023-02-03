@@ -1,4 +1,4 @@
-# Values for SERVER_COUNT, RETRY_JOIN, and IP_ADDRESS are
+# Values for server_count, retry_join, and ip_address are
 # placed here during Terraform setup and come from the 
 # ../shared/data-scripts/user-data-server.sh script
 
@@ -15,7 +15,7 @@ server {
   }
 }
 
-log_level = "debug"
+// log_level = "debug"
 
 consul {
   auto_advertise      = false

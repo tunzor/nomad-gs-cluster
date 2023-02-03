@@ -1,0 +1,4 @@
+region      = "us-east1"
+zone        = "us-east1-b"
+project     = "PROJECT_ID"
+retry_join  = "provider=gce project_name=PROJECT_ID tag_value=auto-join"

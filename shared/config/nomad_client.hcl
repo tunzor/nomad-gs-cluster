@@ -1,4 +1,4 @@
-# Values for RETRY_JOIN, and IP_ADDRESS are
+# Values for retry_join, and ip_address are
 # placed here during Terraform setup and come from the 
 # ../shared/data-scripts/user-data-server.sh script
 

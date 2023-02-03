@@ -1,16 +1,23 @@
+variable "project" {
+  description = "The GCP project to use."
+}
+
+variable "region" {
+  description = "The GCP region to deploy to."
+}
+
+variable "zone" {
+  description = "The GCP zone to deploy to."
+}
+
 variable "name" {
   description = "Prefix used to name various infrastructure components. Alphanumeric characters only."
   default     = "nomad"
 }
 
-variable "region" {
-  description = "The AWS region to deploy to."
-}
-
 variable "retry_join" {
   description = "Used by Consul to automatically form a cluster."
   type        = string
-  default     = "provider=aws tag_key=NomadJoinTag tag_value=auto-join"
 }
 
 variable "allowlist_ip" {
@@ -19,13 +26,13 @@ variable "allowlist_ip" {
 }
 
 variable "server_instance_type" {
-  description = "The AWS instance type to use for servers."
-  default     = "t2.micro"
+  description = "The compute engine instance type to use for servers."
+  default     = "e2-medium"
 }
 
 variable "client_instance_type" {
-  description = "The AWS instance type to use for clients."
-  default     = "t2.micro"
+  description = "The compute engine instance type to use for clients."
+  default     = "e2-medium"
 }
 
 variable "server_count" {
@@ -40,7 +47,7 @@ variable "client_count" {
 
 variable "root_block_device_size" {
   description = "The volume size of the root block device."
-  default     = 16
+  default     = 20
 }
 
 variable "nomad_binary" {
