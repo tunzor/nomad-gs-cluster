@@ -24,7 +24,7 @@ case $CLOUD_ENV in
     echo "CLOUD_ENV: aws"
     IP_ADDRESS=$(curl http://instance-data/latest/meta-data/local-ipv4)
     PUBLIC_IP=$(curl http://instance-data/latest/meta-data/public-ipv4)
-    sudo apt-get install -y software-properties-common
+    sudo apt-get update && sudo apt-get install -y software-properties-common
     ;;
 
   gce)
@@ -35,8 +35,8 @@ case $CLOUD_ENV in
 
   azure)
     echo "CLOUD_ENV: azure"
+    sudo apt-get update && sudo apt-get install -y software-properties-common jq
     IP_ADDRESS=$(curl -s -H Metadata:true --noproxy "*" http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0?api-version=2021-12-13 | jq -r '.["privateIpAddress"]')
-    sudo apt-get install -y software-properties-common
     ;;
 
   *)

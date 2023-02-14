@@ -35,8 +35,8 @@ case $CLOUD_ENV in
 
   azure)
     echo "CLOUD_ENV: azure"
+    sudo apt-get update && sudo apt-get install -y software-properties-common jq
     IP_ADDRESS=$(curl -s -H Metadata:true --noproxy "*" http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0?api-version=2021-12-13 | jq -r '.["privateIpAddress"]')
-    sudo apt-get install -y software-properties-common
     ;;
 
   *)
