@@ -5,7 +5,6 @@ set -e
 exec > >(sudo tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
 ACL_DIRECTORY="/ops/shared/config"
-CONSUL_BOOTSTRAP_TOKEN="/tmp/consul_bootstrap"
 NOMAD_BOOTSTRAP_TOKEN="/tmp/nomad_bootstrap"
 NOMAD_USER_TOKEN="/tmp/nomad_user_token"
 CONFIGDIR="/ops/shared/config"
@@ -22,15 +21,15 @@ CLOUD_ENV=${cloud_env}
 case $CLOUD_ENV in
   aws)
     echo "CLOUD_ENV: aws"
+    sudo apt-get update && sudo apt-get install -y software-properties-common
     IP_ADDRESS=$(curl http://instance-data/latest/meta-data/local-ipv4)
     PUBLIC_IP=$(curl http://instance-data/latest/meta-data/public-ipv4)
-    sudo apt-get install -y software-properties-common
     ;;
 
   gce)
     echo "CLOUD_ENV: gce"
-    IP_ADDRESS=$(curl -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip)
     sudo apt-get update && sudo apt-get install -y software-properties-common
+    IP_ADDRESS=$(curl -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip)
     ;;
 
   azure)

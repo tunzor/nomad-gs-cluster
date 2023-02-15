@@ -12,7 +12,7 @@ resource "google_compute_network" "hashistack" {
   name = "hashistack-${var.name}"
 }
 
-resource "google_compute_firewall" "consul_nomad_ui_ingress" {
+resource "google_compute_firewall" "nomad_ui_ingress" {
   name          = "${var.name}-ui-ingress"
   network       = google_compute_network.hashistack.name
   source_ranges = [var.allowlist_ip]
@@ -21,12 +21,6 @@ resource "google_compute_firewall" "consul_nomad_ui_ingress" {
   allow {
     protocol = "tcp"
     ports    = [4646]
-  }
-
-  # Consul
-  allow {
-    protocol = "tcp"
-    ports    = [8500]
   }
 }
 

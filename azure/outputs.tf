@@ -1,7 +1,3 @@
-output "lb_address_consul_nomad" {
-  value = "http://${azurerm_linux_virtual_machine.server[0].public_ip_address}"
-}
-
 output "IP_Addresses" {
   value = <<CONFIGURATION
 

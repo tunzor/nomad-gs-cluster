@@ -1,7 +1,3 @@
-output "lb_address_consul_nomad" {
-  value = "http://${google_compute_instance.server[0].network_interface.0.access_config.0.nat_ip}"
-}
-
 output "IP_Addresses" {
   value = <<CONFIGURATION
 

@@ -1,7 +1,3 @@
-output "lb_address_consul_nomad" {
-  value = "http://${aws_instance.server[0].public_ip}"
-}
-
 output "IP_Addresses" {
   value = <<CONFIGURATION
 

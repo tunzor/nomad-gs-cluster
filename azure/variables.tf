@@ -36,7 +36,7 @@ variable "admin_password" {
 }
 
 variable "retry_join" {
-  description = "Used by Consul to automatically form a cluster."
+  description = "Used by Nomad to automatically form a cluster."
   type        = string
 }
 

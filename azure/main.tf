@@ -68,22 +68,6 @@ resource "azurerm_network_security_rule" "nomad_ui_ingress" {
   destination_address_prefix = "*"
 }
 
-resource "azurerm_network_security_rule" "consul_ui_ingress" {
-  name                        = "${var.name}-consul-ui-ingress"
-  resource_group_name         = "${azurerm_resource_group.hashistack.name}"
-  network_security_group_name = "${azurerm_network_security_group.hashistack-sg.name}"
-
-  priority  = 102
-  direction = "Inbound"
-  access    = "Allow"
-  protocol  = "Tcp"
-
-  source_address_prefix      = var.allowlist_ip
-  source_port_range          = "*"
-  destination_port_range     = "8500"
-  destination_address_prefix = "*"
-}
-
 resource "azurerm_network_security_rule" "ssh_ingress" {
   name                        = "${var.name}-ssh-ingress"
   resource_group_name         = "${azurerm_resource_group.hashistack.name}"
@@ -157,7 +141,7 @@ resource "azurerm_network_interface" "hashistack-server-ni" {
     public_ip_address_id          = "${element(azurerm_public_ip.hashistack-server-public-ip.*.id, count.index)}"
   }
 
-  tags                            = {"ConsulAutoJoin" = "auto-join"}
+  tags                            = {"NomadJoinTag" = "auto-join"}
 }
 
 resource "azurerm_linux_virtual_machine" "server" {
@@ -238,7 +222,7 @@ resource "azurerm_network_interface" "hashistack-client-ni" {
     public_ip_address_id          = "${element(azurerm_public_ip.hashistack-client-public-ip.*.id, count.index)}"
   }
 
-  tags                            = {"ConsulAutoJoin" = "auto-join"}
+  tags                            = {"NomadJoinTag" = "auto-join"}
 }
 
 resource "azurerm_linux_virtual_machine" "client" {
