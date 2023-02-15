@@ -198,7 +198,7 @@ resource "aws_instance" "server" {
     region                    = var.region
     cloud_env                 = "aws"
     retry_join                = var.retry_join
-    nomad_binary              = var.nomad_binary
+    nomad_version             = var.nomad_version
   })
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
 
@@ -261,7 +261,7 @@ resource "aws_instance" "client" {
     region                    = var.region
     cloud_env                 = "aws"
     retry_join                = var.retry_join
-    nomad_binary              = var.nomad_binary
+    nomad_version             = var.nomad_version
   })
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
 

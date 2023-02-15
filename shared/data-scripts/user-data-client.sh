@@ -9,7 +9,7 @@ CONSUL_BOOTSTRAP_TOKEN="/tmp/consul_bootstrap"
 NOMAD_BOOTSTRAP_TOKEN="/tmp/nomad_bootstrap"
 NOMAD_USER_TOKEN="/tmp/nomad_user_token"
 CONFIGDIR="/ops/shared/config"
-NOMADVERSION=1.4.3
+NOMADVERSION=${nomad_version}
 NOMADDOWNLOAD=https://releases.hashicorp.com/nomad/$${NOMADVERSION}/nomad_$${NOMADVERSION}_linux_amd64.zip
 NOMADCONFIGDIR="/etc/nomad.d"
 NOMADDIR="/opt/nomad"
@@ -91,16 +91,7 @@ echo 1 | sudo tee /proc/sys/net/bridge/bridge-nf-call-iptables
 # Install phase finish ---------------------------------------
 
 RETRY_JOIN="${retry_join}"
-NOMAD_BINARY=${nomad_binary}
 DOCKER_BRIDGE_IP_ADDRESS=(`ifconfig docker0 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://'`)
-
-## Replace existing Nomad binary if remote file exists
-if [[ `wget -S --spider $NOMAD_BINARY  2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
-  curl -L $NOMAD_BINARY > nomad.zip
-  sudo unzip -o nomad.zip -d /usr/local/bin
-  sudo chmod 0755 /usr/local/bin/nomad
-  sudo chown root:root /usr/local/bin/nomad
-fi
 
 sed -i "s/IP_ADDRESS/$IP_ADDRESS/g" $CONFIGDIR/nomad_client.hcl
 sed -i "s/RETRY_JOIN/$RETRY_JOIN/g" $CONFIGDIR/nomad_client.hcl

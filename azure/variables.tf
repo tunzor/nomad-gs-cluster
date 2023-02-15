@@ -7,10 +7,6 @@ variable "location" {
   description = "The Azure region to deploy to."
 }
 
-# variable "image_name" {
-#   description = "The Azure image to use for the server and client machines. Output from the Packer build process. This is the image NAME not the ID."
-# }
-
 variable "subscription_id" {
   description = "The Azure subscription ID to use."
 }
@@ -66,7 +62,7 @@ variable "server_count" {
 
 variable "client_count" {
   description = "The number of clients to provision."
-  default     = "3"
+  default     = "2"
 }
 
 variable "root_block_device_size" {
@@ -74,15 +70,7 @@ variable "root_block_device_size" {
   default     = 16
 }
 
-# variable "nomad_consul_token_id" {
-#   description = "Accessor ID for the Consul ACL token used by Nomad servers and clients. Must be a UUID."
-# }
-
-# variable "nomad_consul_token_secret" {
-#   description = "Secret ID for the Consul ACL token used by Nomad servers and clients. Must be a UUID."
-# }
-
-variable "nomad_binary" {
-  description = "URL of a zip file containing a nomad executable to replace the Nomad binaries in the AMI with. Example: https://releases.hashicorp.com/nomad/0.10.0/nomad_0.10.0_linux_amd64.zip"
-  default     = ""
+variable "nomad_version" {
+  description = "The version of the Nomad binary to install."
+  default     = "1.4.3"
 }

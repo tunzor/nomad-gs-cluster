@@ -2,10 +2,6 @@ output "lb_address_consul_nomad" {
   value = "http://${azurerm_linux_virtual_machine.server[0].public_ip_address}"
 }
 
-# output "consul_bootstrap_token_secret" {
-#   value = var.nomad_consul_token_secret
-# }
-
 output "IP_Addresses" {
   value = <<CONFIGURATION
 
@@ -27,8 +23,11 @@ cat nomad-management.token
 CONFIGURATION
 }
 
+# Uncomment the private key output below if you want to SSH to any of the instances - do so with:
+# terraform output -raw private_key > tf-key.pem && chmod 600 tf-key.pem
 # ssh -i tf-key.pem ubuntu@INSTANCE_PUBLIC_IP
-output "private_key" {
-  value     = tls_private_key.private_key.private_key_pem
-  sensitive = true
-}
+
+# output "private_key" {
+#   value     = tls_private_key.private_key.private_key_pem
+#   sensitive = true
+# }

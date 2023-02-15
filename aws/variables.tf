@@ -43,7 +43,7 @@ variable "root_block_device_size" {
   default     = 16
 }
 
-variable "nomad_binary" {
-  description = "URL of a zip file containing a nomad executable to replace the Nomad binaries in the AMI with. Example: https://releases.hashicorp.com/nomad/0.10.0/nomad_0.10.0_linux_amd64.zip"
-  default     = ""
+variable "nomad_version" {
+  description = "The version of the Nomad binary to install."
+  default     = "1.4.3"
 }

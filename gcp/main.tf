@@ -140,7 +140,7 @@ resource "google_compute_instance" "server" {
     region                    = var.region
     cloud_env                 = "gce"
     retry_join                = var.retry_join
-    nomad_binary              = var.nomad_binary
+    nomad_version             = var.nomad_version
   })
 }
 
@@ -199,6 +199,6 @@ resource "google_compute_instance" "client" {
     region                    = var.region
     cloud_env                 = "gce"
     retry_join                = var.retry_join
-    nomad_binary              = var.nomad_binary
+    nomad_version             = var.nomad_version
   })
 }
