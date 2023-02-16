@@ -11,14 +11,6 @@ variable "subscription_id" {
   description = "The Azure subscription ID to use."
 }
 
-variable "resource_group_name" {
-  description = "The Azure resource group name to use."
-}
-
-variable "storage_account" {
-  description = "The storage account name. Used for boot diagnostics."
-}
-
 variable "client_id" {
   description = "The Azure client ID to use."
 }
@@ -29,10 +21,6 @@ variable "client_secret" {
 
 variable "tenant_id" {
   description = "The Azure tenant ID to use."
-}
-
-variable "admin_password" {
-  description = "The password for the ubuntu account on the server and client machines."
 }
 
 variable "retry_join" {

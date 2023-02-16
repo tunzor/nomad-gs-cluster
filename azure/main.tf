@@ -152,10 +152,6 @@ resource "azurerm_linux_virtual_machine" "server" {
   size                  = "${var.server_instance_type}"
   count                 = "${var.server_count}"
 
-  boot_diagnostics {
-    storage_account_uri = "https://${var.storage_account}.blob.core.windows.net/"
-  }
-
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
@@ -232,10 +228,6 @@ resource "azurerm_linux_virtual_machine" "client" {
   network_interface_ids = ["${element(azurerm_network_interface.hashistack-client-ni.*.id, count.index)}"]
   size                  = "${var.client_instance_type}"
   count                 = "${var.client_count}"
-
-  boot_diagnostics {
-    storage_account_uri = "https://${var.storage_account}.blob.core.windows.net/"
-  }
 
   source_image_reference {
     publisher = "Canonical"
