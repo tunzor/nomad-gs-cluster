@@ -117,7 +117,7 @@ resource "azurerm_network_security_rule" "clients_ingress" {
   source_address_prefix      = var.allowlist_ip
   source_port_range          = "*"
   destination_port_range     = "5000"
-  destination_address_prefixes = azurerm_linux_virtual_machine.client[*].public_ip_address
+  destination_address_prefixes = azurerm_linux_virtual_machine.client[*].private_ip_address
 }
 
 resource "azurerm_public_ip" "hashistack-server-public-ip" {
